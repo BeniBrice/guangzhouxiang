@@ -1,0 +1,20 @@
+generator client {
+    provider = "prisma-client-js"
+    binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x"]
+    output = "/home/ubuntu/guangzhou_xiang_tech/nextjs_space/node_modules/.prisma/client"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model ContactSubmission {
+  id          Int      @id @default(autoincrement())
+  name        String
+  email       String
+  companyName String
+  message     String
+  createdAt   DateTime @default(now())
+  status      String   @default("new")
+}
