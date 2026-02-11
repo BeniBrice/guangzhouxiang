@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { Server, Code2, Database, MapPin, Mail } from 'lucide-react';
+import Image from "next/image";
+import Link from "next/link";
+import { Server, Code2, Database, MapPin, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -24,17 +24,20 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-gray-400 max-w-md mb-4">
-              Empowering small businesses with reliable hosting, custom software development,
-              and comprehensive tech solutions since 2000.
+              Empowering small businesses with reliable hosting, custom software
+              development, and comprehensive tech solutions since 2000.
             </p>
             <div className="space-y-2">
               <div className="flex items-start gap-2 text-gray-400 text-sm">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>2nd Floor, No.8, Lane 13, Shangatang Street, Yuexiu District, Guangzhou, China</span>
+                <span>
+                  2nd Floor, No.8, Lane 13, Shangatang Street, Yuexiu District,
+                  Guangzhou, China
+                </span>
               </div>
               <div className="flex items-center gap-2 text-gray-400 text-sm">
                 <Mail className="w-4 h-4 flex-shrink-0" />
-                <span>contact@gzxiang.tech</span>
+                <span>guangzhouxiang@guangzhouxiang.org</span>
               </div>
             </div>
           </div>
@@ -44,17 +47,17 @@ export default function Footer() {
             <h4 className="font-bold text-lg mb-4">Quick Links</h4>
             <ul className="space-y-2">
               {[
-                { href: '#about', label: 'About Us' },
-                { href: '#services', label: 'Services' },
-                { href: '#portfolio', label: 'Portfolio' },
-                { href: '#contact', label: 'Contact' },
+                { href: "#about", label: "About Us" },
+                { href: "#services", label: "Services" },
+                { href: "#portfolio", label: "Portfolio" },
+                { href: "#contact", label: "Contact" },
               ]?.map?.((link) => (
                 <li key={link?.href}>
                   <Link
-                    href={link?.href ?? '#'}
+                    href={link?.href ?? "#"}
                     className="text-gray-400 hover:text-white transition-colors"
                   >
-                    {link?.label ?? ''}
+                    {link?.label ?? ""}
                   </Link>
                 </li>
               )) ?? null}
@@ -66,15 +69,18 @@ export default function Footer() {
             <h4 className="font-bold text-lg mb-4">Services</h4>
             <ul className="space-y-2">
               {[
-                { icon: Server, label: 'Web Hosting' },
-                { icon: Code2, label: 'Software Development' },
-                { icon: Database, label: 'Database Management' },
+                { icon: Server, label: "Web Hosting" },
+                { icon: Code2, label: "Software Development" },
+                { icon: Database, label: "Database Management" },
               ]?.map?.((service, index) => {
                 const Icon = service?.icon;
                 return (
-                  <li key={index} className="flex items-center gap-2 text-gray-400">
+                  <li
+                    key={index}
+                    className="flex items-center gap-2 text-gray-400"
+                  >
                     {Icon && <Icon className="w-4 h-4" />}
-                    {service?.label ?? ''}
+                    {service?.label ?? ""}
                   </li>
                 );
               }) ?? null}
@@ -86,9 +92,7 @@ export default function Footer() {
           <p className="text-gray-500 text-sm text-center sm:text-left">
             © 2026 Guangzhou Xiang Technology. All rights reserved.
           </p>
-          <p className="text-gray-500 text-sm">
-            Made with ❤️ in Guangzhou
-          </p>
+          <p className="text-gray-500 text-sm">Made with ❤️ in Guangzhou</p>
         </div>
       </div>
     </footer>

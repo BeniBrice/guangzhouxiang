@@ -1,50 +1,56 @@
 "use client";
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { Send, CheckCircle, AlertCircle, MapPin, Mail } from 'lucide-react';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { Send, CheckCircle, AlertCircle, MapPin, Mail } from "lucide-react";
 
 export default function Contact() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    companyName: '',
-    message: '',
+    name: "",
+    email: "",
+    companyName: "",
+    message: "",
   });
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e?.target ?? {};
-    setFormData((prev) => ({ ...(prev ?? {}), [name ?? '']: value ?? '' }));
+    setFormData((prev) => ({ ...(prev ?? {}), [name ?? ""]: value ?? "" }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e?.preventDefault?.();
-    setStatus('loading');
-    setErrorMessage('');
+    setStatus("loading");
+    setErrorMessage("");
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       if (response?.ok) {
-        setStatus('success');
-        setFormData({ name: '', email: '', companyName: '', message: '' });
+        setStatus("success");
+        setFormData({ name: "", email: "", companyName: "", message: "" });
       } else {
         const data = await response?.json?.();
-        setErrorMessage(data?.error ?? 'Something went wrong. Please try again.');
-        setStatus('error');
+        setErrorMessage(
+          data?.error ?? "Something went wrong. Please try again.",
+        );
+        setStatus("error");
       }
     } catch (err) {
-      console.error('Contact form error:', err);
-      setErrorMessage('Failed to submit. Please try again later.');
-      setStatus('error');
+      console.error("Contact form error:", err);
+      setErrorMessage("Failed to submit. Please try again later.");
+      setStatus("error");
     }
   };
 
@@ -79,7 +85,9 @@ export default function Contact() {
             className="lg:col-span-2 space-y-6"
           >
             <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 sm:p-8 rounded-2xl">
-              <h3 className="text-xl font-bold text-white mb-6">Contact Information</h3>
+              <h3 className="text-xl font-bold text-white mb-6">
+                Contact Information
+              </h3>
               <div className="space-y-4">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 bg-[#E53935] rounded-lg flex items-center justify-center flex-shrink-0">
@@ -87,8 +95,12 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="text-white font-medium">Office Address</p>
-                    <p className="text-gray-400 text-sm">2nd Floor, No.8, Lane 13,</p>
-                    <p className="text-gray-400 text-sm">Shangatang Street, Yuexiu District,</p>
+                    <p className="text-gray-400 text-sm">
+                      2nd Floor, No.8, Lane 13,
+                    </p>
+                    <p className="text-gray-400 text-sm">
+                      Shangatang Street, Yuexiu District,
+                    </p>
                     <p className="text-gray-400 text-sm">Guangzhou, China</p>
                   </div>
                 </div>
@@ -98,7 +110,9 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="text-white font-medium">Email Us</p>
-                    <p className="text-gray-400 text-sm">contact@gzxiang.tech</p>
+                    <p className="text-gray-400 text-sm">
+                      guangzhouxiang@guangzhouxiang.org
+                    </p>
                   </div>
                 </div>
               </div>
@@ -106,9 +120,15 @@ export default function Contact() {
 
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
               <h4 className="font-bold text-gray-900 mb-3">Business Hours</h4>
-              <p className="text-gray-600 text-sm">Monday - Friday: 9:00 AM - 6:00 PM (CST)</p>
-              <p className="text-gray-600 text-sm">Saturday: 10:00 AM - 4:00 PM (CST)</p>
-              <p className="text-gray-500 text-sm mt-2">24/7 Emergency support available</p>
+              <p className="text-gray-600 text-sm">
+                Monday - Friday: 9:00 AM - 6:00 PM (CST)
+              </p>
+              <p className="text-gray-600 text-sm">
+                Saturday: 10:00 AM - 4:00 PM (CST)
+              </p>
+              <p className="text-gray-500 text-sm mt-2">
+                24/7 Emergency support available
+              </p>
             </div>
           </motion.div>
 
@@ -123,16 +143,19 @@ export default function Contact() {
               onSubmit={handleSubmit}
               className="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-100"
             >
-              {status === 'success' ? (
+              {status === "success" ? (
                 <div className="text-center py-8">
                   <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">Message Sent!</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                    Message Sent!
+                  </h3>
                   <p className="text-gray-600 mb-6">
-                    Thank you for reaching out. We'll get back to you within 24 hours.
+                    Thank you for reaching out. We'll get back to you within 24
+                    hours.
                   </p>
                   <button
                     type="button"
-                    onClick={() => setStatus('idle')}
+                    onClick={() => setStatus("idle")}
                     className="text-[#E53935] font-medium hover:underline"
                   >
                     Send Another Message
@@ -142,14 +165,17 @@ export default function Contact() {
                 <>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-medium text-gray-700 mb-2"
+                      >
                         Full Name *
                       </label>
                       <input
                         type="text"
                         id="name"
                         name="name"
-                        value={formData?.name ?? ''}
+                        value={formData?.name ?? ""}
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#E53935] focus:ring-2 focus:ring-[#E53935]/20 outline-none transition-all"
@@ -157,14 +183,17 @@ export default function Contact() {
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-gray-700 mb-2"
+                      >
                         Email Address *
                       </label>
                       <input
                         type="email"
                         id="email"
                         name="email"
-                        value={formData?.email ?? ''}
+                        value={formData?.email ?? ""}
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#E53935] focus:ring-2 focus:ring-[#E53935]/20 outline-none transition-all"
@@ -173,27 +202,33 @@ export default function Contact() {
                     </div>
                   </div>
                   <div className="mb-5">
-                    <label htmlFor="companyName" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label
+                      htmlFor="companyName"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
                       Company Name
                     </label>
                     <input
                       type="text"
                       id="companyName"
                       name="companyName"
-                      value={formData?.companyName ?? ''}
+                      value={formData?.companyName ?? ""}
                       onChange={handleChange}
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#E53935] focus:ring-2 focus:ring-[#E53935]/20 outline-none transition-all"
                       placeholder="Your Company Ltd."
                     />
                   </div>
                   <div className="mb-6">
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
                       Message *
                     </label>
                     <textarea
                       id="message"
                       name="message"
-                      value={formData?.message ?? ''}
+                      value={formData?.message ?? ""}
                       onChange={handleChange}
                       required
                       rows={5}
@@ -202,19 +237,21 @@ export default function Contact() {
                     />
                   </div>
 
-                  {status === 'error' && (
+                  {status === "error" && (
                     <div className="mb-5 p-4 bg-red-50 border border-red-200 rounded-xl flex items-center gap-3">
                       <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
-                      <p className="text-red-700 text-sm">{errorMessage || 'Something went wrong'}</p>
+                      <p className="text-red-700 text-sm">
+                        {errorMessage || "Something went wrong"}
+                      </p>
                     </div>
                   )}
 
                   <button
                     type="submit"
-                    disabled={status === 'loading'}
+                    disabled={status === "loading"}
                     className="w-full bg-[#E53935] hover:bg-[#C62828] disabled:bg-gray-400 text-white font-semibold py-4 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
                   >
-                    {status === 'loading' ? (
+                    {status === "loading" ? (
                       <>
                         <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                         Sending...
@@ -228,7 +265,8 @@ export default function Contact() {
                   </button>
 
                   <p className="text-xs text-gray-500 text-center mt-4">
-                    Your information is securely stored and will not be shared with third parties.
+                    Your information is securely stored and will not be shared
+                    with third parties.
                   </p>
                 </>
               )}
